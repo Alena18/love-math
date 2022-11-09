@@ -19,12 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
 /**
  * The main game "loop", called when the script is first loaded
  * and after the user's answer has been processed
  */
- function runGame(gameType) {
+function runGame(gameType) {
 
     // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
@@ -37,14 +36,13 @@ document.addEventListener("DOMContentLoaded", function() {
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
 
-
 }
 
 /**
- * Checks the answer agaist the first element in
+ * Checks the answer against the first element in
  * the returned calculateCorrectAnswer array
  */
- function checkAnswer() {
+function checkAnswer() {
 
     let userAnswer = parseInt(document.getElementById("answer-box").value);
     let calculatedAnswer = calculateCorrectAnswer();
@@ -52,8 +50,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (isCorrect) {
         alert("Hey! You got it right! :D");
+        incrementScore();
     } else {
         alert(`Awwww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongAnswer();
     }
 
     runGame(calculatedAnswer[1]);
@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function() {
  * Gets the operands (the numbers) and the operator (plus, minus etc)
  * directly from the dom, and returns the correct answer.
  */
-
 function calculateCorrectAnswer() {
 
     let operand1 = parseInt(document.getElementById('operand1').innerText);
@@ -79,12 +78,25 @@ function calculateCorrectAnswer() {
     }
 
 }
+
+/**
+ * Gets the current score from the DOM and increments it by 1
+ */
 function incrementScore() {
+
+    let oldScore = parseInt(document.getElementById("score").innerText);
+    document.getElementById("score").innerText = ++oldScore;
 
 }
 
+/**
+ * Gets the current tally of incorrect answers from the DOM and increments it by 1
+ */
 function incrementWrongAnswer() {
 
+    let oldScore = parseInt(document.getElementById("incorrect").innerText);
+    document.getElementById("incorrect").innerText = ++oldScore;
+    
 }
 
 function displayAdditionQuestion(operand1, operand2) {
